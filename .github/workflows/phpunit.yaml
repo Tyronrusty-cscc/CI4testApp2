@@ -12,60 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set Environment Variables
-        run: |
-          echo "ROOTPATH=${GITHUB_WORKSPACE}/" >> $GITHUB_ENV
-          echo "APPPATH=${GITHUB_WORKSPACE}/app/" >> $GITHUB_ENV
-
-      - name: Setup PHP Environment
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          extensions: mbstring, intl
-          coverage: none
-
-      - name: Install Composer dependencies
-        uses: php-actions/composer@v6
-        with:
-          command: install --ignore-platform-reqs
-
-      - name: Check Directory and Permissions
-        run: |
-          echo "Listing APPPATH contents:"
-          ls -la $APPPATH
-          echo "Listing ROOTPATH contents:"
-          ls -la $ROOTPATH
-          if [ -f "${APPPATH}Common.php" ]; then
-            echo "Common.php found in app directory."
-            chmod +r "${APPPATH}Common.php"
-          else
-            echo "Common.php not found in app directory."
-            exit 1
-          fi
-
-      - name: Echo paths for debugging
-        run: |
-          echo "APPPATH: $APPPATH"
-          echo "ROOTPATH: $ROOTPATH"
-          echo "Trying to load Common.php from: ${APPPATH}Common.php"
-          if [ -f "${APPPATH}Common.php" ]; then
-            echo "Common.php is readable and exists."
-          else
-            echo "Failed to locate Common.php at ${APPPATH}Common.php"
-            exit 1
-          fi
-      - name: Check if Common.php exists
-        run: |
-            if [ -f "${APPPATH}Common.php" ]; then
-              echo "Common.php found at ${APPPATH}Common.php"
-            else
-              echo "Common.php not found at ${APPPATH}Common.php"
-              exit 1
-            fi
-      - name: Run PHPUnit tests
-        run: vendor/bin/phpunit --configuration phpunit.xml
-        env: 
-          APPPATH: ${{ github.workspace }}/app/
+      - uses: actions/checkout@v3
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+      - uses: php-actions/composer@v6
+      - run: echo "Composer dependencies have been installed"
+      - run: vendor/bin/phpunit
