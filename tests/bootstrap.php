@@ -54,7 +54,16 @@ if (is_file(APPPATH . 'Common.php')) {
     require_once APPPATH . 'Common.php';
 }
 
-require_once SYSTEMPATH . 'Common.php';
+if (getenv('GITHUB_ACTIONS') !== 'true') {
+    // Only load SYSTEMPATH Common.php locally
+    if (is_file(SYSTEMPATH . 'Common.php')) {
+        require_once SYSTEMPATH . 'Common.php';
+    } else {
+        echo "SYSTEMPATH Common.php not found.\n";
+    }
+} else {
+    echo "Skipping SYSTEMPATH Common.php for GitHub Actions environment.\n";
+}
 
 // Set environment values that would otherwise stop the framework from functioning during tests.
 if (! isset($_SERVER['app.baseURL'])) {
