@@ -1,10 +1,12 @@
 name: PHPUnit Tests
 
 on:
-  pull_request:
+  push:
     branches:
       - main  # Adjust if your default branch has a different name
-
+  pull_request:
+        branches:
+          - '*'  # Trigger the workflow on pull requests targeting any branch
 jobs:
   build-test:
     runs-on: ubuntu-latest
