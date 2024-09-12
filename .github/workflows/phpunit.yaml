@@ -57,7 +57,14 @@ jobs:
             echo "Failed to locate Common.php at ${APPPATH}Common.php"
             exit 1
           fi
-
+      - name: Check if Common.php exists
+        run: |
+            if [ -f "${APPPATH}Common.php" ]; then
+              echo "Common.php found at ${APPPATH}Common.php"
+            else
+              echo "Common.php not found at ${APPPATH}Common.php"
+              exit 1
+            fi
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit --configuration phpunit.xml
         env: 
