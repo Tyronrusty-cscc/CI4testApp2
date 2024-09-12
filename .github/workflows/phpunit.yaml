@@ -1,12 +1,9 @@
 name: PHPUnit Tests
 
 on:
-  push:
-    branches:
-      - main  
   pull_request:
     branches:
-      - '*'  # Trigger the workflow on pull requests targeting any branch
+      - main  # Adjust if your default branch has a different name
 
 jobs:
   build-test:
@@ -21,14 +18,6 @@ jobs:
           echo "ROOTPATH=${GITHUB_WORKSPACE}/" >> $GITHUB_ENV
           echo "APPPATH=${GITHUB_WORKSPACE}/app/" >> $GITHUB_ENV
 
-      - name: Echo paths for debugging
-        run: |
-          echo "Checking paths..."
-          echo "ROOTPATH: $ROOTPATH"
-          echo "APPPATH: $APPPATH"
-          echo "Listing contents in APPPATH:"
-          ls -la $APPPATH
-
       - name: Setup PHP Environment
         uses: shivammathur/setup-php@v2
         with:
@@ -41,18 +30,33 @@ jobs:
         with:
           command: install --ignore-platform-reqs
 
-      - name: Check if Common.php exists
+      - name: Check Directory and Permissions
         run: |
+          echo "Listing APPPATH contents:"
+          ls -la $APPPATH
+          echo "Listing ROOTPATH contents:"
+          ls -la $ROOTPATH
+          if [ -f "${APPPATH}Common.php" ]; then
+            echo "Common.php found in app directory."
+            chmod +r "${APPPATH}Common.php"
+          else
+            echo "Common.php not found in app directory."
+            exit 1
+          fi
+
+      - name: Echo paths for debugging
+        run: |
+          echo "APPPATH: $APPPATH"
+          echo "ROOTPATH: $ROOTPATH"
           echo "Trying to load Common.php from: ${APPPATH}Common.php"
           if [ -f "${APPPATH}Common.php" ]; then
-            echo "Common.php found."
+            echo "Common.php is readable and exists."
           else
-            echo "Common.php not found."
+            echo "Failed to locate Common.php at ${APPPATH}Common.php"
             exit 1
           fi
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit --configuration phpunit.xml
-        env : 
-          APPPATH: ${{ github.workspace}}/app/
-      
+        env: 
+          APPPATH: ${{ github.workspace }}/app/
