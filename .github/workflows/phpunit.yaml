@@ -27,11 +27,6 @@ jobs:
           extensions: mbstring, intl
           coverage: none
 
-      - name: Install Composer dependencies
-        uses: php-actions/composer@v6
-        with:
-          command: install --ignore-platform-reqs
-
       - name: Check Directory and Permissions
         run: |
           echo "Listing APPPATH contents:"
@@ -45,7 +40,24 @@ jobs:
             echo "Common.php not found in app directory."
             exit 1
           fi
+ 
+      - name: Install Composer dependencies
+        run: |
+          if [ -f composer.lock ]; then
+            composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+          else
+            composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
+          fi
 
+      - name: Verify vendor directory
+        run: |
+          echo "Checking vendor directory..."
+          if [ -d "${GITHUB_WORKSPACE}/vendor" ] && [ -f "${GITHUB_WORKSPACE}/vendor/autoload.php" ]; then
+            echo "Vendor directory and autoload.php file found."
+          else
+            echo "Vendor directory or autoload.php file not found."
+            exit 1
+          fi 
       - name: Echo paths for debugging
         run: |
           echo "APPPATH: $APPPATH"
