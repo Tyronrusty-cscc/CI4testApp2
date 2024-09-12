@@ -1,0 +1,55 @@
+name: PHPUnit Tests
+
+on:
+  pull_request:
+    branches:
+      - main  # Adjust if your default branch has a different name
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set Environment Variables
+        run: |
+          echo "ROOTPATH=${GITHUB_WORKSPACE}/" >> $GITHUB_ENV
+          echo "APPPATH=${GITHUB_WORKSPACE}/app/" >> $GITHUB_ENV
+
+      - name: Echo paths for debugging
+        run: |
+          echo "Checking paths..."
+          echo "ROOTPATH: $ROOTPATH"
+          echo "APPPATH: $APPPATH"
+          echo "Listing contents in APPPATH:"
+          ls -la $APPPATH
+
+      - name: Setup PHP Environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, intl
+          coverage: none
+
+      - name: Install Composer dependencies
+        uses: php-actions/composer@v6
+        with:
+          command: install --ignore-platform-reqs
+
+      - name: Check if Common.php exists
+        run: |
+          echo "Trying to load Common.php from: ${APPPATH}Common.php"
+          if [ -f "${APPPATH}Common.php" ]; then
+            echo "Common.php found."
+          else
+            echo "Common.php not found."
+            exit 1
+          fi
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit --configuration phpunit.xml
+        env : 
+          APPPATH: ${{ github.workspace}}/app/
+      
