@@ -40,7 +40,12 @@ jobs:
             echo "Common.php not found in app directory."
             exit 1
           fi
- 
+      - name: Permissions for Common.php
+        run: |
+            chmod -R 755 ${{ github.workspace }}/app
+            ls -l ${{ github.workspace }}/app/Common.php
+         
+         
       - name: Install Composer dependencies
         run: |
           if [ -f composer.lock ]; then
