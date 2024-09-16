@@ -72,7 +72,7 @@ if (! isset($_SERVER['app.baseURL'])) {
 
 // Load necessary components
 //require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
-require_once __DIR__. 'Config/AutoloadConfig.php';
+require_once __DIR__. '/Config/AutoloadConfig.php';
 require_once APPPATH . 'Config/Autoload.php';
 require_once APPPATH . 'Config/Constants.php';
 require_once SYSTEMPATH . 'Modules/Modules.php';
