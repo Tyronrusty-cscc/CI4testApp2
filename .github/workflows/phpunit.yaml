@@ -1,3 +1,4 @@
+
 name: PHPUnit Tests
 
 on:
@@ -5,8 +6,9 @@ on:
     branches:
       - main  # Adjust if your default branch has a different name
   pull_request:
-        branches:
-          - '*'  # Trigger the workflow on pull requests targeting any branch
+    branches:
+      - '*'  # Trigger the workflow on pull requests targeting any branch
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -27,25 +29,6 @@ jobs:
           extensions: mbstring, intl
           coverage: none
 
-      - name: Check Directory and Permissions
-        run: |
-          echo "Listing APPPATH contents:"
-          ls -la $APPPATH
-          echo "Listing ROOTPATH contents:"
-          ls -la $ROOTPATH
-          if [ -f "${APPPATH}Common.php" ]; then
-            echo "Common.php found in app directory."
-            chmod +r "${APPPATH}Common.php"
-          else
-            echo "Common.php not found in app directory."
-            exit 1
-          fi
-      - name: Permissions for Common.php
-        run: |
-            chmod -R 755 ${{ github.workspace }}/app
-            ls -l ${{ github.workspace }}/app/Common.php
-         
-         
       - name: Install Composer dependencies
         run: |
           if [ -f composer.lock ]; then
@@ -62,7 +45,14 @@ jobs:
           else
             echo "Vendor directory or autoload.php file not found."
             exit 1
-          fi 
+          fi
+
+      - name: Adjust Permissions for GitHub Runner
+        run: |
+          chmod -R 755 ${{ github.workspace }}/app
+          chmod +r ${{ github.workspace }}/app/Common.php
+          ls -l ${{ github.workspace }}/app/Common.php
+
       - name: Echo paths for debugging
         run: |
           echo "APPPATH: $APPPATH"
@@ -74,15 +64,9 @@ jobs:
             echo "Failed to locate Common.php at ${APPPATH}Common.php"
             exit 1
           fi
-      - name: Check if Common.php exists
-        run: |
-            if [ -f "${APPPATH}Common.php" ]; then
-              echo "Common.php found at ${APPPATH}Common.php"
-            else
-              echo "Common.php not found at ${APPPATH}Common.php"
-              exit 1
-            fi
+
       - name: Run PHPUnit tests
-        run: vendor/bin/phpunit --configuration phpunit.xml
-        env: 
+        run: |
+          vendor/bin/phpunit --configuration phpunit.xml
+        env:
           APPPATH: ${{ github.workspace }}/app/
