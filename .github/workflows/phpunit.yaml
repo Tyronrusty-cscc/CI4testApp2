@@ -67,6 +67,6 @@ jobs:
 
       - name: Run PHPUnit tests
         run: |
-          vendor/bin/phpunit --configuration phpunit.xml
+          vendor/bin/phpunit 
         env:
           APPPATH: ${{ github.workspace }}/app/
