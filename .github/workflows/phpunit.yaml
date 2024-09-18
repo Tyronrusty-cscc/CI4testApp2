@@ -30,43 +30,18 @@ jobs:
           coverage: none
 
       - name: Install Composer dependencies
-        run: |
-          if [ -f composer.lock ]; then
-            composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
-          else
-            composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
-          fi
-
-      - name: Verify vendor directory
-        run: |
-          echo "Checking vendor directory..."
-          if [ -d "${GITHUB_WORKSPACE}/vendor" ] && [ -f "${GITHUB_WORKSPACE}/vendor/autoload.php" ]; then
-            echo "Vendor directory and autoload.php file found."
-          else
-            echo "Vendor directory or autoload.php file not found."
-            exit 1
-          fi
-
-      - name: Adjust Permissions for GitHub Runner
-        run: |
-          chmod -R 755 ${{ github.workspace }}/app
-          chmod +r ${{ github.workspace }}/app/Common.php
-          ls -l ${{ github.workspace }}/app/Common.php
-
-      - name: Echo paths for debugging
-        run: |
-          echo "APPPATH: $APPPATH"
-          echo "ROOTPATH: $ROOTPATH"
-          echo "Trying to load Common.php from: ${APPPATH}Common.php"
-          if [ -f "${APPPATH}Common.php" ]; then
-            echo "Common.php is readable and exists."
-          else
-            echo "Failed to locate Common.php at ${APPPATH}Common.php"
-            exit 1
-          fi
-
+        run: composer install --no-progress --prefer-dist --no-suggest  # Install PHP dependencies
+  
+      - name: Make PHPUnit executable
+        run: chmod +x vendor/bin/phpunit 
+  
+      - name: Make bootstrap readable
+        run: chmod +r tests/bootstrap.php 
+  
       - name: Run PHPUnit tests
+        run: vendor/bin/phpunit --configuration phpunit.xml  # Execute PHPUnit tests
+  
+      - name: Check PHP version and installed extensions
         run: |
-          vendor/bin/phpunit 
-        env:
-          APPPATH: ${{ github.workspace }}/app/
+            php -v
+            php -m  # Optional: List installed PHP modules
