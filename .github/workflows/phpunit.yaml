@@ -57,7 +57,7 @@ jobs:
             echo "Vendor directory not found!"
             exit 1
           fi
-      - name: debug for validation dir
+      - name: debug for validation directory
         run: |
          echo "listing app/validation directory content:"
          ls -la app/Validation
