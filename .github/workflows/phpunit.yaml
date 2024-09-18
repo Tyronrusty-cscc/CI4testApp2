@@ -57,6 +57,10 @@ jobs:
             echo "Vendor directory not found!"
             exit 1
           fi
+      - name: debug for validation dir
+        run: |
+         echo "listing app/validation directory content:"
+         ls -la app/Validation
 
       # Step 7: Run PHPUnit tests
       - name: Run PHPUnit tests
@@ -66,8 +70,5 @@ jobs:
           DB: sqlite # Adjust the database setting based on your project's DB setup
           TERM: xterm-256color
 
-      - name: Run PHPUnit tests
-        run: |
-         echo "listing app/validation directory content:"
-         ls -la app/Validation
+   
            
