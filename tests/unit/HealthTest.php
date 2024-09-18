@@ -18,6 +18,7 @@ final class HealthTest extends CIUnitTestCase
     public function testBaseUrlHasBeenSet()
     {
         $validation = Services::validation();
+        var_dump($validation->getRuleSetNames());
 
         $env = false;
 
