@@ -50,30 +50,20 @@ defined('COMPOSER_PATH') || define('COMPOSER_PATH', (string) realpath(HOMEPATH .
 defined('VENDORPATH')    || define('VENDORPATH', realpath(HOMEPATH . 'vendor') . DIRECTORY_SEPARATOR);
 
 // Load Common.php from App then System
-
-echo "Trying to load: " . APPPATH . 'Common.php' . "\n";
-
-// Include the Composer autoloader.
-require_once ROOTPATH . 'vendor/autoload.php';
-
-// Explicitly include Common.php from the app directory.
-require_once __DIR__ . '/../app/Common.php';
-
-echo "Trying to load: " . __DIR__ . '/../app/Common.php' . PHP_EOL;
-if (file_exists(__DIR__ . '/../app/Common.php')) {
-    echo "Common.php found." . PHP_EOL;
-} else {
-    echo "Common.php not found." . PHP_EOL;
-    exit(1);  // Stop execution if the file is not found
-}
-
-
-
 if (is_file(APPPATH . 'Common.php')) {
     require_once APPPATH . 'Common.php';
 }
 
-require_once SYSTEMPATH . 'Common.php';
+if (getenv('GITHUB_ACTIONS') !== 'true') {
+    // Only load SYSTEMPATH Common.php locally
+    if (is_file(SYSTEMPATH . 'Common.php')) {
+        require_once SYSTEMPATH . 'Common.php';
+    } else {
+        echo "SYSTEMPATH Common.php not found.\n";
+    }
+} else {
+    echo "Skipping SYSTEMPATH Common.php for GitHub Actions environment.\n";
+}
 
 // Set environment values that would otherwise stop the framework from functioning during tests.
 if (! isset($_SERVER['app.baseURL'])) {
@@ -81,6 +71,7 @@ if (! isset($_SERVER['app.baseURL'])) {
 }
 
 // Load necessary components
+//require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
 require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
 require_once APPPATH . 'Config/Autoload.php';
 require_once APPPATH . 'Config/Constants.php';
@@ -91,8 +82,6 @@ require_once SYSTEMPATH . 'Autoloader/Autoloader.php';
 require_once SYSTEMPATH . 'Config/BaseService.php';
 require_once SYSTEMPATH . 'Config/Services.php';
 require_once APPPATH . 'Config/Services.php';
-require_once APPPATH . 'Common.php';
-
 
 // Initialize and register the loader with the SPL autoloader stack.
 Services::autoloader()->initialize(new Autoload(), new Modules())->register();

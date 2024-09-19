@@ -23,7 +23,8 @@ class Paths
      * This must contain the name of your "system" folder. Include
      * the path if the folder is not in the same directory as this file.
      */
-    public $systemDirectory = 'C:\data\Codeigniter-4.4.5-Shared\vendor\codeigniter4\framework\system';
+    public string $systemDirectory = __DIR__ . '/../../vendor/codeigniter4/framework/system';
+
 
     /**
      * ---------------------------------------------------------------
