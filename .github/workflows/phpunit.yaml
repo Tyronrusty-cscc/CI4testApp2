@@ -9,6 +9,7 @@ on:
     branches:
       - '*'  # Trigger the workflow on pull requests targeting any branch
 
+      
 jobs:
   build-test:
     runs-on: ubuntu-latest
