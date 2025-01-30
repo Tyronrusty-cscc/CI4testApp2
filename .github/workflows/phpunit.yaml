@@ -19,6 +19,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+
+      - name: Detect framework version change
+        run: |
+          OLD_VERSION=$(git show HEAD^:Config/Paths.php | grep "public \$systemDirectory" | cut -d '=' -f2 | tr -d " ';")
+          NEW_VERSION=$(grep "public \$systemDirectory" Config/Paths.php | cut -d '=' -f2 | tr -d " ';")
+
+          echo "Previous system directory: $OLD_VERSION"
+          echo "Current system directory: $NEW_VERSION"
+
+          if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
+            echo "! Framework version changed from $OLD_VERSION to $NEW_VERSION!"
+            exit 1
+          else
+            echo " Framework version is unchanged."
+          fi 
+
       # Step 2: Set up PHP with necessary extensions
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
