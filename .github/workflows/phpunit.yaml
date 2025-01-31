@@ -29,10 +29,14 @@ jobs:
           # Ensure the file exists
           if [ ! -f "$FILE_PATH" ]; then
               echo "Error: $FILE_PATH does not exist in the working directory!"
-              ls -R app # Debug: Show file in 'app'
+              ls -R app/Config # Debug: Show file in 'app'
               exit 1
           fi
           
+          # debug: print file content
+          echo "===Paths.php Content ======"
+          cat "$FILE_PATH"
+          echo "============================"
           # Get the current system directory value
           NEW_VERSION=$(grep "public \$systemDirectory" "$FILE_PATH" | cut -d '=' -f2 | tr -d " '\";")
 
