@@ -19,10 +19,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: List all files in app
+        run: ls -R app
 
       - name: Detect framework version change
         run: |
-          FILE_PATH="app/config/Paths.php"
+          FILE_PATH="app/Config/Paths.php"
 
           # Ensure the file exists
           if [ ! -f "$FILE_PATH" ]; then
