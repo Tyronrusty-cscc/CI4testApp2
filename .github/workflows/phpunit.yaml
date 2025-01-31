@@ -29,20 +29,26 @@ jobs:
           # Ensure the file exists
           if [ ! -f "$FILE_PATH" ]; then
               echo "Error: $FILE_PATH does not exist in the working directory!"
+              ls -R app # Debug: Show file in 'app'
               exit 1
           fi
+          
+           
 
           # Get the current system directory value
-          NEW_VERSION=$(grep "public \$systemDirectory" "$FILE_PATH" | cut -d '=' -f2 | tr -d " ';")
+          NEW_VERSION=$(grep "public \$systemDirectory" "$FILE_PATH" | cut -d '=' -f2 | tr -d " '\ ";")
 
           # Get the previous version safely from Git history
-          OLD_VERSION=$(git log -1 --pretty=format:%H -- "$FILE_PATH" | xargs -I {} git show {}:"$FILE_PATH" 2>/dev/null | grep "public \$systemDirectory" | cut -d '=' -f2 | tr -d " ';")
+          OLD_VERSION=$(git log -1 --pretty=format:%H -- "$FILE_PATH" | xargs -I {} git show {}:"$FILE_PATH" 2>/dev/null | grep "public \$systemDirectory" | cut -d '=' -f2 | tr -d " '\";")
 
           # Handle cases where the file is new or has no history
           if [ -z "$OLD_VERSION" ]; then
               echo "No previous framework version found. Assuming this is the first commit with this file."
               exit 0
           fi
+          
+           echo "Raw NEW_VERSION: $(grep "public \$systemDirectory" "$FILE_PATH")"
+           echo "Raw OLD_VERSION: $(git show {}:"$FILE_PATH" | grep "public \$systemDirectory")"
 
           echo "Previous system directory: $OLD_VERSION"
           echo "Current system directory: $NEW_VERSION"
