@@ -37,19 +37,30 @@ jobs:
           echo "===Paths.php Content ======"
           cat "$FILE_PATH"
           echo "============================"
-          # Get the current system directory value
-          NEW_VERSION=$(grep "public \$systemDirectory" "$FILE_PATH" | cut -d '=' -f2 | tr -d " '\";")
+
+          # Extract the raw systemDirectory line
+           RAW_NEW_VERSION=$(grep -E "public\s+string\s+\$systemDirectory" "$FILE_PATH" | awk -F= '{print $2}' | tr -d " ';")
+          echo "Raw NEW_VERSION: $RAW_NEW_VERSION"
+
+           # Resolve __DIR__ manually
+            BASE_DIR=$(dirname "$(realpath "$FILE_PATH")")
+            NEW_VERSION=$(echo "$RAW_NEW_VERSION" | sed "s#__DIR__#$BASE_DIR#g")
+            echo "Resolved NEW_VERSION: $NEW_VERSION"
 
           # Get the previous version safely from Git history
-          OLD_VERSION=$(git log -1 --pretty=format:%H -- "$FILE_PATH" | xargs -I {} git show {}:"$FILE_PATH" 2>/dev/null | grep "public \$systemDirectory" | cut -d '=' -f2 | tr -d " '\";")
+          RAW_OLD_VERSION=$(git log -1 --pretty=format:%H -- "$FILE_PATH" | xargs -I {} git show {}:"$FILE_PATH" 2>/dev/null | grep -E "public\s+string\s+\$systemDirectory" | awk -F= '{print $2}' | tr -d " ';")
+          echo "Raw OLD_VERSION: $RAW_OLD_VERSION"
 
-          # Handle cases where the file is new or has no history
+           # Resolve __DIR__ in OLD_VERSION (if found)
+           OLD_VERSION=$(echo "$RAW_OLD_VERSION" | sed "s#__DIR__#$BASE_DIR#g")
+           echo "Resolved OLD_VERSION: $OLD_VERSION"
+
+          # Check if OLD_VERSION is empty
           if [ -z "$OLD_VERSION" ]; then
-              echo "No previous framework version found. Assuming this is the first commit with this file."
-               echo "Raw NEW_VERSION: $(grep "public \$systemDirectory" "$FILE_PATH")"
-               echo "Raw OLD_VERSION: $(git show {}:"$FILE_PATH" | grep "public \$systemDirectory")"
-              exit 0
+          echo "No previous framework version found. Assuming this is the first commit with this file."
+          exit 0
           fi
+
 
           echo "Previous system directory: $OLD_VERSION"
           echo "Current system directory: $NEW_VERSION"
