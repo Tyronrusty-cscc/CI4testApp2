@@ -14,7 +14,9 @@ final class HealthTest extends CIUnitTestCase
     {
         $this->assertTrue(defined('APPPATH'));
     }
-
+    public function testExample(){
+        $this->assertTrue(true);
+    }
     public function testBaseUrlHasBeenSet()
     {
         $validation = Services::validation();

@@ -4,10 +4,11 @@ name: PHPUnit Tests
 on:
   push:
     branches:
-      - main  # Adjust if your default branch has a different name
+      - main  
   pull_request:
     branches:
       - '*'  # Trigger the workflow on pull requests targeting any branch
+
 
 jobs:
   build-test:
@@ -18,11 +19,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: List all files in app
+        run: ls -R app
+
+      - name: Detect framework version change
+        run: |
+          FILE_PATH="app/Config/Paths.php"
+
+           # Ensure the file exists
+               if [ ! -f "$FILE_PATH" ]; then
+            echo "Error: $FILE_PATH does not exist!"
+             exit 1
+             fi
+
+           # Extract system directory value
+          SYSTEM_DIR=$(grep -Eo 'public string \$systemDirectory = .*;' "$FILE_PATH" | cut -d '=' -f2- | tr -d " ';")
+
+           # Print the extracted value
+           echo "System Directory: $SYSTEM_DIR"
+
+
       # Step 2: Set up PHP with necessary extensions
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1' # Change this if you're using a different PHP version
+          php-version: '8.1' # 
           extensions: mbstring, intl, json, zip, sodium, bcmath
           ini-values: date.timezone=UTC
           coverage: none
@@ -62,7 +83,7 @@ jobs:
         run: vendor/bin/phpunit 
         env:
           APP_ENV: testing
-          DB: sqlite # Adjust the database setting based on your project's DB setup
+          DB: sqlite 
           TERM: xterm-256color
 
    

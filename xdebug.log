@@ -1,0 +1,83 @@
+[38536] Log opened at 2025-01-08 14:43:30.980222
+[38536] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[38536] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[38536] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[38536] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[38536] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[38536] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[38536] Log closed at 2025-01-08 14:44:12.311960
+
+[16188] Log opened at 2025-01-08 16:35:30.587227
+[16188] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:49250.
+[16188] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:49250 (through xdebug.client_host/xdebug.client_port).
+[16188] Log closed at 2025-01-08 16:35:30.798495
+
+[34784] Log opened at 2025-01-15 14:27:48.354992
+[34784] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[34784] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[34784] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[34784] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[34784] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[34784] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[34784] Log closed at 2025-01-15 14:28:31.698135
+
+[52592] Log opened at 2025-01-15 14:36:19.313287
+[52592] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[52592] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[12640] Log opened at 2025-01-15 14:37:07.847390
+[12640] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[12640] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[52592] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[52592] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[52592] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[52592] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[52592] Log closed at 2025-01-15 14:40:30.864805
+
+[14756] Log opened at 2025-01-15 14:40:33.193874
+[14756] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[14756] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[14756] Log closed at 2025-01-15 14:40:52.937862
+
+[12724] Log opened at 2025-01-15 14:44:45.081470
+[12724] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[12724] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[12724] Log closed at 2025-01-15 14:45:11.344165
+
+[12640] Log closed at 2025-01-25 06:30:00.369101
+
+[9496] Log opened at 2025-01-29 13:24:40.019139
+[9496] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[12648] Log opened at 2025-01-29 13:24:40.125797
+[12648] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[9496] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[12648] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[4672] Log opened at 2025-01-30 13:51:50.422717
+[4672] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[4672] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[20488] Log opened at 2025-01-30 14:05:31.260714
+[20488] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[20488] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[19428] Log opened at 2025-01-30 18:29:12.915615
+[19428] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[19428] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[14504] Log opened at 2025-01-30 18:30:25.653237
+[14504] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[14504] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[17240] Log opened at 2025-01-30 19:19:18.238292
+[17240] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[17240] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[13848] Log opened at 2025-01-30 19:19:56.405318
+[13848] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[13848] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[9184] Log opened at 2025-01-30 19:23:20.748671
+[9184] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[9184] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[1344] Log opened at 2025-01-30 19:23:42.644482
+[1344] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[1344] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[22992] Log opened at 2025-01-30 19:25:16.344493
+[22992] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[22992] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
+[3364] Log opened at 2025-01-30 19:26:07.714165
+[3364] [Step Debug] INFO: Connecting to configured address/port: 192.168.1.9:64008.
+[3364] [Step Debug] ERR: Time-out connecting to debugging client, waited: 200 ms. Tried: 192.168.1.9:64008 (through xdebug.client_host/xdebug.client_port).
