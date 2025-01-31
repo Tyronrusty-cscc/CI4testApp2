@@ -22,18 +22,37 @@ jobs:
 
       - name: Detect framework version change
         run: |
-          OLD_VERSION=$(git show HEAD^:Config/Paths.php | grep "public \$systemDirectory" | cut -d '=' -f2 | tr -d " ';")
-          NEW_VERSION=$(grep "public \$systemDirectory" Config/Paths.php | cut -d '=' -f2 | tr -d " ';")
+          FILE_PATH="app/config/Paths.php"
+
+          # Ensure the file exists
+          if [ ! -f "$FILE_PATH" ]; then
+              echo "Error: $FILE_PATH does not exist in the working directory!"
+              exit 1
+          fi
+
+          # Get the current system directory value
+          NEW_VERSION=$(grep "public \$systemDirectory" "$FILE_PATH" | cut -d '=' -f2 | tr -d " ';")
+
+          # Get the previous version safely from Git history
+          OLD_VERSION=$(git log -1 --pretty=format:%H -- "$FILE_PATH" | xargs -I {} git show {}:"$FILE_PATH" 2>/dev/null | grep "public \$systemDirectory" | cut -d '=' -f2 | tr -d " ';")
+
+          # Handle cases where the file is new or has no history
+          if [ -z "$OLD_VERSION" ]; then
+              echo "No previous framework version found. Assuming this is the first commit with this file."
+              exit 0
+          fi
 
           echo "Previous system directory: $OLD_VERSION"
           echo "Current system directory: $NEW_VERSION"
 
+          # Check if the framework version has changed
           if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
-            echo "! Framework version changed from $OLD_VERSION to $NEW_VERSION!"
-            exit 1
+              echo "! Framework version changed from $OLD_VERSION to $NEW_VERSION!"
+              exit 1
           else
-            echo " Framework version is unchanged."
-          fi 
+              echo "Framework version is unchanged."
+          fi
+
 
       # Step 2: Set up PHP with necessary extensions
       - name: Set up PHP
