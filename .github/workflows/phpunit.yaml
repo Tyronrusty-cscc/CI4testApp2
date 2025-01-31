@@ -42,6 +42,8 @@ jobs:
           # Handle cases where the file is new or has no history
           if [ -z "$OLD_VERSION" ]; then
               echo "No previous framework version found. Assuming this is the first commit with this file."
+               echo "Raw NEW_VERSION: $(grep "public \$systemDirectory" "$FILE_PATH")"
+               echo "Raw OLD_VERSION: $(git show {}:"$FILE_PATH" | grep "public \$systemDirectory")"
               exit 0
           fi
 
